@@ -3,59 +3,64 @@ package me.johnnywoof;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.plugin.Command;
+import net.md_5.bungee.api.chat.ComponentBuilder;
 
 public class AOCommand extends Command{
-	
-	private AlwaysOnline ao;
-	
-	public AOCommand(AlwaysOnline ao) {
+
+private AlwaysOnline ao;
+
+public AOCommand(AlwaysOnline ao) {
         super("alwaysonline", "alwaysonline.usage", "ao");
         
         this.ao = ao;
         
     }
  
-	@SuppressWarnings("deprecation")
-	public void execute(CommandSender sender, String[] args) {
+public void execute(CommandSender sender, String[] args) {
     
-		if(args.length <= 0){
-			
-			this.displayHelp(sender);
-			
-		}else{
-			
-			if(args[0].equalsIgnoreCase("toggle")){
-				
-				AlwaysOnline.mojangonline = !AlwaysOnline.mojangonline;
-				
-				sender.sendMessage(ChatColor.GOLD + "Mojang offline mode is now " + ((!AlwaysOnline.mojangonline ? ChatColor.GREEN + "enabled" : ChatColor.RED + "disabled")) + ChatColor.GOLD + "!");
-				
-			}else if(args[0].equalsIgnoreCase("reload")){
-				
-				ao.reload();
-				
-				sender.sendMessage(ChatColor.GOLD + "Configuration file has been reloaded!");
-				
-			}else{
-				
-				this.displayHelp(sender);
-				
-			}
-			
-		}
-    	
+if(args.length <= 0){
+
+this.displayHelp(sender);
+
+}else{
+
+if(args[0].equalsIgnoreCase("toggle")){
+
+AlwaysOnline.mojangonline = !AlwaysOnline.mojangonline;
+
+if (!AlwaysOnline.mojangonline ){
+sender.sendMessage(new ComponentBuilder("Mojang offline mode is now ").color(ChatColor.GOLD).append("enabled").color(ChatColor.GREEN).append("!").color(ChatColor.GOLD).create());
+}
+else{
+
+}
+sender.sendMessage(new ComponentBuilder("Mojang offline mode is now ").color(ChatColor.GOLD).append("enabled").color(ChatColor.RED).append("!").color(ChatColor.GOLD).create());
+
+}else if(args[0].equalsIgnoreCase("reload")){
+
+ao.reload();
+
+sender.sendMessage(new ComponentBuilder("Configuration file has been reloaded!").color(ChatColor.GOLD).create();
+
+}else{
+
+this.displayHelp(sender);
+
+}
+
+}
+    
     }
-	
-	@SuppressWarnings("deprecation")
-	private void displayHelp(CommandSender sender){
-		
-		sender.sendMessage(ChatColor.GOLD + "" + ChatColor.STRIKETHROUGH + "----------" + ChatColor.GOLD + "[" + ChatColor.DARK_GREEN + "AlwaysOnline " + ChatColor.GRAY + ao.getDescription().getVersion() + "" + ChatColor.GOLD + "]" + ChatColor.GOLD + "" + ChatColor.STRIKETHROUGH + "----------");
-		
-		sender.sendMessage(ChatColor.GOLD + "/alwaysonline toggle - " + ChatColor.DARK_GREEN + "Toggles between mojang online mode");
-		sender.sendMessage(ChatColor.GOLD + "/alwaysonline reload - " + ChatColor.DARK_GREEN + "Reloads the configuration file");
-		
-		sender.sendMessage(ChatColor.GOLD + "" + ChatColor.STRIKETHROUGH + "------------------------------");
-		
-	}
-	
+
+private void displayHelp(CommandSender sender){
+
+sender.sendMessage(new ComponentBuilder("").color(ChatColor.GOLD).append("----------").color(ChatColor.STRIKETHROUGH).color(ChatColor.GOLD).append("[").color(ChatColor.GOLD).append("AlwaysOnline").color(ChatColor.DARK_GREEN).append(ao.getDescription().getVersion()).color(ChatColor.GRAY).append("").append("]").color(ChatColor.GOLD).append("").append("----------").color(ChatColor.STRIKETHROUGH).color(ChatColor.GOLD).create());
+
+sender.sendMessage(new ComponentBuilder("/alwaysonline toggle - ").color(ChatColor.GOLD).append("Toggles between mojang online mode").color( ChatColor.DARK_GREEN).create());
+sender.sendMessage(new ComponentBuilder("/alwaysonline reload - ").color(ChatColor.GOLD).append("Reloads the configuration file").color( ChatColor.DARK_GREEN).create());
+
+sender.sendMessage(new ComponentBuilder("------------------------------").color(ChatColor.GOLD).append("").color(ChatColor.STRIKETHROUGH).create());
+
+}
+
 }
