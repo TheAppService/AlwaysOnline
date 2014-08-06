@@ -35,12 +35,11 @@ public class AOCommand extends Command {
 							.color(ChatColor.GREEN).append("!")
 							.color(ChatColor.GOLD).create());
 				} else {
-
+					sender.sendMessage(new ComponentBuilder(
+							"Mojang offline mode is now ").color(ChatColor.GOLD)
+							.append("disabled").color(ChatColor.RED).append("!")
+							.color(ChatColor.GOLD).create());
 				}
-				sender.sendMessage(new ComponentBuilder(
-						"Mojang offline mode is now ").color(ChatColor.GOLD)
-						.append("enabled").color(ChatColor.RED).append("!")
-						.color(ChatColor.GOLD).create());
 
 			} else if (args[0].equalsIgnoreCase("reload")) {
 
